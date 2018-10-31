@@ -87,15 +87,24 @@ public class MaquinaExpendedoraMejorada {
     }
     
     /**
-     * Vacía el dinero de la máquina incluido el que este en uso 
-     * y devuelve la cantidad de dinero extraida.
+     * Vacía el dinero de la máquina  y devuelve la cantidad de dinero extraida.
+     * Mensaje de error en caso de estar introducciendo dinero mientras si intenta 
+     * extraer el dinero.
      */
     public int vaciarDineroDeLaMaquina()
     {
+        if(balanceClienteActual <= 0){
+        //Comprueba el balance del cliente    
         int cantidadDineroExtraida;
-        cantidadDineroExtraida = totalDineroAcumulado + balanceClienteActual;
+        cantidadDineroExtraida = totalDineroAcumulado;
         totalDineroAcumulado = 0;
         balanceClienteActual=0;
         return cantidadDineroExtraida;
     }
+    else{
+        //Imprime un mensaje de error por pantalla y devuelve un valor de -1
+        System.out.println("No se pudo extraer el dinero acumulado en la máquina. Operación en curso. Espere a que termine la operación y vuelva a intentarlo");
+        return -1;
+    }
+}
 }
