@@ -12,19 +12,25 @@ public class MaquinaExpendedoraMejorada {
     private String estacionDestino;
     // El tipo de maquina, con premio o sin premio
     private boolean tipoMaq;
+    // Contador
+    private int contadorB;
+    // Cantidad maxima de billetes
+    private int maxB;
 
     /**
      * Crea una maquina expendedora de billetes de tren con el 
      * precio del billete y el origen y destino dados. Se asume que el precio
      * del billete que se recibe es mayor que 0.
      */
-    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean tipoMaquina) {
+    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean tipoMaquina, int maximoBillete) {
         precioBillete = precioDelBillete;
         balanceClienteActual = 0;
         totalDineroAcumulado = 0;
         estacionOrigen = origen;
         estacionDestino = destino;
         tipoMaq = tipoMaquina;
+        maxB = maximoBillete;
+        contadorB = 0;
         
     }
 
@@ -46,7 +52,10 @@ public class MaquinaExpendedoraMejorada {
      * Simula la introduccion de dinero por parte del cliente actual
      */
     public void introducirDinero(int cantidadIntroducida) {
-        if(cantidadIntroducida > 0) {
+        if(contadorB == maxB){
+            System.out.println("Billetes agotados.");
+        }
+        else if(cantidadIntroducida > 0) {
             balanceClienteActual = balanceClienteActual + cantidadIntroducida;
         }
         else {
@@ -71,6 +80,8 @@ public class MaquinaExpendedoraMejorada {
             totalDineroAcumulado = totalDineroAcumulado + precioBillete;
             // Reduce el balance del cliente actual dejandole seguir utilizando la maquina
             balanceClienteActual = balanceClienteActual - precioBillete;
+            // Añade un billete vendido al contador
+            contadorB = contadorB +1;
             if(tipoMaq == true){
                 // Simula la impresion de un billete de regalo
                 System.out.println("##################");
